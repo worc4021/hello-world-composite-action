@@ -13,8 +13,8 @@ runs:
   using: composite
   steps:
   - if: runner.os == 'windows'
-    run: ./.github/actions/windows.yml
+    run: ${{ github.action_path }}/.github/actions/windows.yml
     shell: cmd
   - if: runner.os == 'linux' || runner.os == 'macOS'
-    run: ./.github/actions/unix.yml
+    run: ${{ github.action_path }}/.github/actions/unix.yml
     shell: bash
