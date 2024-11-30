@@ -15,7 +15,7 @@ runs:
   - uses: actions/checkout@v4
 
   - if: runner.os == 'Windows'
-    uses: ./.github/actions/windows.yml
+    uses: ./.github/actions/windows
     
   - if: runner.os == 'Linux' || runner.os == 'macOS'
-    uses: ./.github/actions/unix.yml
+    uses: ./.github/actions/unix
