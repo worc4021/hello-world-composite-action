@@ -12,6 +12,8 @@ outputs:
 runs:
   using: composite
   steps:
+  - uses: actions/checkout@v4
+
   - if: runner.os == 'Windows'
     uses: ./.github/actions/windows.yml
     
