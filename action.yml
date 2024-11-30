@@ -13,7 +13,7 @@ runs:
   using: composite
   steps:
   - if: runner.os == 'Windows'
-    uses: ${{ github.action_path }}/.github/actions/windows.yml
+    uses: ./.github/actions/windows.yml
     
   - if: runner.os == 'Linux' || runner.os == 'macOS'
-    uses: ${{ github.action_path }}/.github/actions/unix.yml
+    uses: ./.github/actions/unix.yml
