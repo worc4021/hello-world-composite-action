@@ -14,7 +14,6 @@ runs:
   steps:
   - if: runner.os == 'Windows'
     uses: ${{ github.action_path }}/.github/actions/windows.yml
-    shell: cmd
+    
   - if: runner.os == 'Linux' || runner.os == 'macOS'
     uses: ${{ github.action_path }}/.github/actions/unix.yml
-    shell: bash
