@@ -15,7 +15,11 @@ runs:
   - uses: actions/checkout@v4
 
   - if: runner.os == 'Windows'
-    uses: ${{ github.action_path }}/.github/actions/windows
+    uses: .github/actions/windows
+    with:
+      who-to-greet: ${{ inputs.who-to-greet }}
     
   - if: runner.os == 'Linux' || runner.os == 'macOS'
-    uses: ${{ github.action_path }}/.github/actions/unix
+    uses: .github/actions/unix
+    with:
+      who-to-greet: ${{ inputs.who-to-greet }}
