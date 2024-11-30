@@ -10,41 +10,9 @@ outputs:
     description: Random number
     value: ${{ steps.random-number-generator.outputs.random-number }}
 runs:
-  windows:
-    using: composite
-    if: startsWith(runner.os, 'Windows')
-    steps:
-    - name: Set Greeting
-      run: echo "Hello $env:INPUT_WHO_TO_GREET."
-      shell: pwsh
-      env:
-        INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}
-    
-    - name: Random Number Generator
-      id: random-number-generator
-      run: echo "random-number=$(Get-Random)" >> $env:GITHUB_OUTPUT
-      shell: pwsh
-
-    - name: Run goodbye.ps1
-      run: ${{ github.action_path }}/scripts/goodbye.bat
-      shell: pwsh
-  
-  unix:
-    using: composite
-    if: startsWith(runner.os, 'Linux') || startsWith(runner.os, 'macOS')
-    steps:
-    - name: Set Greeting
-      run: echo "Hello $INPUT_WHO_TO_GREET."
-      shell: bash
-      env:
-        INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}
-    
-    - name: Random Number Generator
-      id: random-number-generator
-      run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
-      shell: bash
-
-    - name: Run goodbye.sh
-      run: ${{ github.action_path }}/scripts/goodbye.sh
-      shell: bash
-
+  using: composite
+  steps:
+  - if ${{ startsWith(runner.os, 'Windows') }}:
+    run: ./.github/actions/windows.yml
+  - if ${{ startsWith(runner.os, 'Linux') || startsWith(runner.os, 'macOS') }}:
+    run: ./.github/actions/unix.yml

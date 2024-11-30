@@ -1,0 +1,29 @@
+name: Hello World
+description: Greet someone
+inputs:
+  who-to-greet:  # id of input
+    description: Who to greet
+    required: true
+    default: World
+outputs:
+  random-number:
+    description: Random number
+    value: ${{ steps.random-number-generator.outputs.random-number }}
+runs:
+  using: composite
+  if: startsWith(runner.os, 'Windows')
+  steps:
+  - name: Set Greeting
+    run: echo "Hello $env:INPUT_WHO_TO_GREET."
+    shell: pwsh
+    env:
+      INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}
+  
+  - name: Random Number Generator
+    id: random-number-generator
+    run: echo "random-number=$(Get-Random)" >> $env:GITHUB_OUTPUT
+    shell: pwsh
+
+  - name: Run goodbye.ps1
+    run: ${{ github.action_path }}/scripts/goodbye.bat
+    shell: pwsh
